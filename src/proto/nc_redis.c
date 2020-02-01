@@ -71,6 +71,7 @@ redis_arg0(struct msg *r)
 
     case MSG_REQ_REDIS_DECR:
     case MSG_REQ_REDIS_GET:
+    case MSG_REQ_REDIS_KEYS:
     case MSG_REQ_REDIS_INCR:
     case MSG_REQ_REDIS_STRLEN:
 
@@ -675,6 +676,11 @@ redis_parse_req(struct msg *r)
                 if (str4icmp(m, 'a', 'u', 't', 'h')) {
                     r->type = MSG_REQ_REDIS_AUTH;
                     r->noforward = 1;
+                    break;
+                }
+
+                if (str4icmp(m, 'k', 'e', 'y', 's')) {
+                    r->type = MSG_REQ_REDIS_KEYS;
                     break;
                 }
 

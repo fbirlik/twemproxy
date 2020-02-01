@@ -79,6 +79,7 @@ typedef enum msg_parse_result {
     ACTION( REQ_REDIS_DECRBY )                                                                      \
     ACTION( REQ_REDIS_DUMP )                                                                        \
     ACTION( REQ_REDIS_GET )                                                                         \
+    ACTION( REQ_REDIS_KEYS )                                                                        \
     ACTION( REQ_REDIS_GETBIT )                                                                      \
     ACTION( REQ_REDIS_GETRANGE )                                                                    \
     ACTION( REQ_REDIS_GETSET )                                                                      \
