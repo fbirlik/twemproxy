@@ -465,6 +465,10 @@ conn_authenticated(struct conn *conn)
         return true;
     }
 
+    if (conn->client && !pool->client_auth) {
+        return true;
+    }
+
     if (!conn->authenticated) {
         return false;
     }

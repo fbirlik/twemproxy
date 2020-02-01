@@ -47,6 +47,7 @@
 #define CONF_DEFAULT_LISTEN_BACKLOG          512
 #define CONF_DEFAULT_CLIENT_CONNECTIONS      0
 #define CONF_DEFAULT_REDIS                   false
+#define CONF_DEFAULT_CLIENT_AUTH             true
 #define CONF_DEFAULT_REDIS_DB                0
 #define CONF_DEFAULT_PRECONNECT              false
 #define CONF_DEFAULT_AUTO_EJECT_HOSTS        false
@@ -87,6 +88,7 @@ struct conf_pool {
     int                tcpkeepalive;          /* tcpkeepalive: */
     int                redis;                 /* redis: */
     struct string      redis_auth;            /* redis_auth: redis auth password (matches requirepass on redis) */
+    int                client_auth;           /* require/ignore client_authentication */
     int                redis_db;              /* redis_db: redis db */
     int                preconnect;            /* preconnect: */
     int                auto_eject_hosts;      /* auto_eject_hosts: */

@@ -82,6 +82,10 @@ static struct command conf_commands[] = {
       conf_set_string,
       offsetof(struct conf_pool, redis_auth) },
 
+    { string("client_auth"),
+      conf_set_bool,
+      offsetof(struct conf_pool, client_auth) },
+
     { string("redis_db"),
       conf_set_num,
       offsetof(struct conf_pool, redis_db) },
@@ -200,6 +204,7 @@ conf_pool_init(struct conf_pool *cp, struct string *name)
     cp->redis = CONF_UNSET_NUM;
     cp->tcpkeepalive = CONF_UNSET_NUM;
     cp->redis_db = CONF_UNSET_NUM;
+    cp->client_auth = CONF_UNSET_NUM;
     cp->preconnect = CONF_UNSET_NUM;
     cp->auto_eject_hosts = CONF_UNSET_NUM;
     cp->server_connections = CONF_UNSET_NUM;
@@ -302,6 +307,7 @@ conf_pool_each_transform(void *elem, void *data)
     sp->server_failure_limit = (uint32_t)cp->server_failure_limit;
     sp->auto_eject_hosts = cp->auto_eject_hosts ? 1 : 0;
     sp->preconnect = cp->preconnect ? 1 : 0;
+    sp->client_auth = cp->client_auth ? 1 : 0;
 
     status = server_init(&sp->server, &cp->server, sp);
     if (status != NC_OK) {
@@ -1236,6 +1242,10 @@ conf_validate_pool(struct conf *cf, struct conf_pool *cp)
 
     if (cp->redis == CONF_UNSET_NUM) {
         cp->redis = CONF_DEFAULT_REDIS;
+    }
+
+    if (cp->client_auth == CONF_UNSET_NUM) {
+        cp->client_auth = CONF_DEFAULT_CLIENT_AUTH;
     }
 
     if (cp->tcpkeepalive == CONF_UNSET_NUM) {
